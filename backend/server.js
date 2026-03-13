@@ -1,24 +1,26 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-
-dotenv.config();
-
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./config/db.js";
+import bodyParser from "body-parser";
+import router from './routes/AuthRoute.js'
 const app = express();
-
-app.use(cors());
+const port = 4000;
+import 'dotenv/config'
+// req pars to json
 app.use(express.json());
+// to connect backend to different ports 
+app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
+app.use(bodyParser.json());
+// db connection importing the database file
+connectDB();
+// API endpoints
+app.use('/auth',router);
+// for now we have just mounted the folder uploads at /images end point.
+app.get('/',(req,res)=>{
+    res.send("Hello World");
+})
 
-app.get("/health", (req, res) => {
-  res.send("Checking api health.");
-});
-
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(port,()=>{
+    console.log(`Listening at the port ${port}`);
+})
