@@ -35,20 +35,28 @@ const Dropzone = ({ onFileSelect }) => {
       "image/png",
       "image/jpg",
     ];
-    if (validTypes.includes(file.type)) {
-      onFileSelect(file);
-    } else {
+
+    const maxSize = 10 * 1024 * 1024; // 10MB
+
+    if (!validTypes.includes(file.type)) {
       alert("Please upload a PDF, JPG, or PNG file.");
+      return;
     }
+
+    if (file.size > maxSize) {
+      alert("File size must be less than 10MB.");
+      return;
+    }
+
+    onFileSelect(file);
   };
 
   return (
     <div
-      className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 ease-in-out ${
-        isDragging
+      className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 ease-in-out ${isDragging
           ? "border-blue-500 bg-blue-50"
           : "border-gray-300 bg-gray-50 hover:bg-gray-100 hover:border-gray-400"
-      }`}
+        }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
