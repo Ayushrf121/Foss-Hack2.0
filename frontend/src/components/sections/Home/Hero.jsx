@@ -1,7 +1,9 @@
 import React from "react";
 import heroImage from "../../../assets/Home/HeroImage.webp";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-gray-100">
       <div
@@ -28,8 +30,8 @@ const Hero = () => {
           </p>
 
           <div className="mt-10">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg transition-all transform hover:scale-105 active:scale-95 text-lg">
-              Analyze My Report
+            <button onClick={()=>navigate('/report')} className=" cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg transition-all transform hover:scale-105 active:scale-95 text-lg">
+              Analyze Your Report
             </button>
             <p className="mt-3 text-sm text-gray-600 ml-4 font-medium">
               Free to use • Secure & Private

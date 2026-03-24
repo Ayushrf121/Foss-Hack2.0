@@ -34,6 +34,7 @@ const Dropzone = ({ onFileSelect }) => {
       "image/jpeg",
       "image/png",
       "image/jpg",
+      "image/webp"
     ];
 
     const maxSize = 10 * 1024 * 1024; // 10MB

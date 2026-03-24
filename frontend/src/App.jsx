@@ -8,27 +8,33 @@ import { ToastContainer } from 'react-toastify';
 import LoginPage from './components/LoginWeb/LoginPage.jsx';
 import Footer from "./components/common/Footer";
 import Report from "./pages/Report";
+import Response from "./pages/Response.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import Terms from "./pages/Terms.jsx";
+import DataSecurity from "./pages/DataSecurity.jsx";
+
 const History = () => <div className="p-8 text-xl">History Page Content</div>;
 
 const App = () => {
-  const [login,setLogin] = useState(false);
+  const [login, setLogin] = useState(false);
   useEffect(() => {
     AOS.init()
   }, []);
   return (
     <>
-    {
-      login ? <LoginPage setLogin = {setLogin}/>:
-      <></>
-    }
+      {login ? <LoginPage setLogin={setLogin} /> : <></>}
       <div className="min-h-screen bg-gray-50">
-        <ToastContainer/>
-        <Header setLogin = {setLogin}/>
+        <ToastContainer />
+        <Header setLogin={setLogin} />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/report" element={<Report />} />
+            <Route path="/response" element={<Response />} />
             <Route path="/history" element={<History />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/services" element={<Terms/>} />
+            <Route path="/dataSecurity" element={<DataSecurity/>} />
           </Routes>
         </main>
         <Footer />

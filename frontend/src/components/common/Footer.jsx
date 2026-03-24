@@ -1,4 +1,5 @@
 import React from "react";
+import SehatSathi from '../../assets/SehatSathi.png'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,9 +11,9 @@ const Footer = () => {
           <div className="md:col-span-2">
             <a
               href="/"
-              className="text-2xl font-bold text-blue-600 tracking-wide mb-4 inline-block"
             >
-              LOGO
+              <img src={SehatSathi} alt="" className="w-24 filter contrast-[120%] brightness-[105%] h-24" />
+
             </a>
             <p className="text-gray-500 leading-relaxed max-w-sm mt-4">
               Demystifying medical terminology. We empower you to understand
@@ -58,7 +59,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="#"
+                  href="/privacy"
                   className="text-gray-500 hover:text-blue-600 transition-colors"
                 >
                   Privacy Policy
@@ -66,7 +67,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/services"
                   className="text-gray-500 hover:text-blue-600 transition-colors"
                 >
                   Terms of Service
@@ -74,7 +75,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/dataSecurity"
                   className="text-gray-500 hover:text-blue-600 transition-colors"
                 >
                   Data Security

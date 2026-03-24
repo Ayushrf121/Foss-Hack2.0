@@ -56,7 +56,7 @@ export default function Header({ setLogin }) {
               href="/"
               className="text-2xl font-bold text-blue-600 tracking-wide"
             >
-              LOGO
+              SehatSathi
             </a>
           </div>
 

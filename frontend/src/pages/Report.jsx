@@ -1,54 +1,50 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReportHeader from "../components/sections/Report/ReportHeader";
 import FilePreview from "../components/sections/Report/FilePreview";
 import AnalyzeAction from "../components/sections/Report/AnalyzeAction";
 import Dropzone from "../components/sections/Report/Dropzone";
-
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-
+ 
 const Report = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
+ 
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
-    setResult(null);
     setError(null);
   };
-
+ 
   const handleRemoveFile = () => {
     setFile(null);
-    setResult(null);
     setError(null);
   };
-
+ 
   const handleAnalyze = async () => {
     if (!file) return;
-
+ 
     try {
       setLoading(true);
       setError(null);
-      setResult(null);
-
+ 
       const formData = new FormData();
       formData.append("file", file);
-
+ 
       const response = await fetch("http://localhost:4000/report/analyze", {
         method: "POST",
         body: formData,
       });
-
+ 
       const data = await response.json();
-
+ 
       if (!response.ok) {
         throw new Error(data.message || "Server error");
       }
-
+ 
       if (data.success) {
-        setResult(data.data);
+        // Navigate to /response and pass the result via route state
+        navigate("/response", { state: { result: data.data, fileName: file.name } });
       } else {
         setError(data.message);
       }
@@ -58,12 +54,12 @@ const Report = () => {
       setLoading(false);
     }
   };
-
+ 
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6">
       <div className="max-w-3xl mx-auto">
         <ReportHeader />
-
+ 
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 md:p-12 transition-all duration-300">
           {/* Upload Section */}
           {!file ? (
@@ -71,10 +67,10 @@ const Report = () => {
           ) : (
             <FilePreview file={file} onRemove={handleRemoveFile} />
           )}
-
+ 
           {/* Analyze Button */}
           <AnalyzeAction file={file} onAnalyze={handleAnalyze} />
-
+ 
           {/* Loading Spinner */}
           {loading && (
             <div className="mt-6 flex flex-col items-center justify-center space-y-2">
@@ -84,26 +80,11 @@ const Report = () => {
               </p>
             </div>
           )}
-
+ 
           {/* Error Message */}
           {error && (
             <div className="mt-6 p-4 rounded-lg bg-red-50 border border-red-200 text-center">
               <p className="text-red-600 font-medium">⚠️ {error}</p>
-            </div>
-          )}
-
-          {/* Result Display */}
-          {result && (
-            <div className="mt-6 p-6 border rounded-xl bg-green-50 border-green-200 shadow-sm">
-              <h3 className="font-bold text-lg mb-4 text-green-700 flex items-center gap-2">
-                🧾 Analysis Result
-              </h3>
-
-              <div className="prose prose-sm max-w-none text-gray-800 max-h-96 overflow-y-auto">
-                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                  {result}
-                </ReactMarkdown>
-              </div>
             </div>
           )}
         </div>
@@ -111,5 +92,5 @@ const Report = () => {
     </div>
   );
 };
-
+ 
 export default Report;
