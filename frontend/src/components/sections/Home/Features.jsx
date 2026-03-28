@@ -5,7 +5,7 @@ const Features = () => {
     {
       title: "Any Language You Speak",
       description:
-        "Medical terms are hard enough in your native tongue. Get your results translated and explained in over 30 languages instantly.",
+        "Medical terms are hard enough in your native tongue. Get your results translated and explained in simple and convenient languages(English, Hindi, Hindlish) instantly.",
       icon: (
         <svg
           className="w-7 h-7"
@@ -71,7 +71,7 @@ const Features = () => {
     {
       title: "Actionable Health Insights",
       description:
-        "We don't just define confusing words. We summarize your overall health snapshot and provide the exact questions to ask your doctor.",
+        "We don't just define confusing words. We summarize your overall health snapshot and provide the exact result.",
       icon: (
         <svg
           className="w-7 h-7"

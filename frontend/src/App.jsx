@@ -12,14 +12,14 @@ import Response from "./pages/Response.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Terms from "./pages/Terms.jsx";
 import DataSecurity from "./pages/DataSecurity.jsx";
-
-const History = () => <div className="p-8 text-xl">History Page Content</div>;
+import History from "./pages/History.jsx";
 
 const App = () => {
   const [login, setLogin] = useState(false);
   useEffect(() => {
-    AOS.init()
+    AOS.init();
   }, []);
+
   return (
     <>
       {login ? <LoginPage setLogin={setLogin} /> : <></>}
@@ -33,8 +33,8 @@ const App = () => {
             <Route path="/response" element={<Response />} />
             <Route path="/history" element={<History />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/services" element={<Terms/>} />
-            <Route path="/dataSecurity" element={<DataSecurity/>} />
+            <Route path="/services" element={<Terms />} />
+            <Route path="/dataSecurity" element={<DataSecurity />} />
           </Routes>
         </main>
         <Footer />

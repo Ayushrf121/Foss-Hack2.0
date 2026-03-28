@@ -4,47 +4,68 @@ import ReportHeader from "../components/sections/Report/ReportHeader";
 import FilePreview from "../components/sections/Report/FilePreview";
 import AnalyzeAction from "../components/sections/Report/AnalyzeAction";
 import Dropzone from "../components/sections/Report/Dropzone";
- 
+
 const Report = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
- 
+
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
     setError(null);
   };
- 
+
   const handleRemoveFile = () => {
     setFile(null);
     setError(null);
   };
- 
+
   const handleAnalyze = async () => {
     if (!file) return;
- 
+
     try {
       setLoading(true);
       setError(null);
- 
+
       const formData = new FormData();
       formData.append("file", file);
- 
+
       const response = await fetch("http://localhost:4000/report/analyze", {
         method: "POST",
         body: formData,
       });
- 
+
       const data = await response.json();
- 
+
       if (!response.ok) {
         throw new Error(data.message || "Server error");
       }
- 
+
       if (data.success) {
-        // Navigate to /response and pass the result via route state
-        navigate("/response", { state: { result: data.data, fileName: file.name } });
+        // Save to history if user is logged in
+        const token = localStorage.getItem("token");
+        if (token) {
+          try {
+            await fetch("http://localhost:4000/history/save", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                fileName: file.name,
+                result: data.data,
+              }),
+            });
+          } catch {
+            // silently fail — don't block navigation if history save fails
+          }
+        }
+
+        navigate("/response", {
+          state: { result: data.data, fileName: file.name },
+        });
       } else {
         setError(data.message);
       }
@@ -54,12 +75,12 @@ const Report = () => {
       setLoading(false);
     }
   };
- 
+
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6">
       <div className="max-w-3xl mx-auto">
         <ReportHeader />
- 
+
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 md:p-12 transition-all duration-300">
           {/* Upload Section */}
           {!file ? (
@@ -67,10 +88,10 @@ const Report = () => {
           ) : (
             <FilePreview file={file} onRemove={handleRemoveFile} />
           )}
- 
+
           {/* Analyze Button */}
           <AnalyzeAction file={file} onAnalyze={handleAnalyze} />
- 
+
           {/* Loading Spinner */}
           {loading && (
             <div className="mt-6 flex flex-col items-center justify-center space-y-2">
@@ -80,7 +101,7 @@ const Report = () => {
               </p>
             </div>
           )}
- 
+
           {/* Error Message */}
           {error && (
             <div className="mt-6 p-4 rounded-lg bg-red-50 border border-red-200 text-center">
@@ -92,5 +113,5 @@ const Report = () => {
     </div>
   );
 };
- 
+
 export default Report;
