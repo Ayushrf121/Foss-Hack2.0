@@ -58,7 +58,6 @@ SehatSaathi bridges the gap between complex medical jargon and everyday understa
 | Joi | Request body validation |
 | Google Auth Library | Google OAuth token verification |
 | Axios | HTTP client for AI API calls |
-| dotenv | Environment variable management |
 
 ### AI Services
 | Service | Role |
