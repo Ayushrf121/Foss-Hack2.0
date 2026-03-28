@@ -4,6 +4,7 @@ import ReportHeader from "../components/sections/Report/ReportHeader";
 import FilePreview from "../components/sections/Report/FilePreview";
 import AnalyzeAction from "../components/sections/Report/AnalyzeAction";
 import Dropzone from "../components/sections/Report/Dropzone";
+import { Url } from "../components/api/Url";
 
 const Report = () => {
   const [file, setFile] = useState(null);
@@ -31,7 +32,7 @@ const Report = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:4000/report/analyze", {
+      const response = await fetch(Url+"/report/analyze", {
         method: "POST",
         body: formData,
       });
@@ -47,7 +48,7 @@ const Report = () => {
         const token = localStorage.getItem("token");
         if (token) {
           try {
-            await fetch("http://localhost:4000/history/save", {
+            await fetch(Url+"/history/save", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

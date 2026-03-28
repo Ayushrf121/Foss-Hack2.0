@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { Url } from "../components/api/Url";
 
 const History = () => {
   const [entries, setEntries] = useState([]);
@@ -27,7 +28,7 @@ const History = () => {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch("http://localhost:4000/history", {
+      const res = await fetch(Url+"/history", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -46,7 +47,7 @@ const History = () => {
   const handleDelete = async (id) => {
     setDeletingId(id);
     try {
-      const res = await fetch(`http://localhost:4000/history/${id}`, {
+      const res = await fetch(Url+`/history/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -73,7 +74,7 @@ const History = () => {
     });
   };
 
-  // ── Not logged in ──────────────────────────────────────────────────────────
+  // Not logged in 
   if (!isLogged) {
     return (
       <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6 flex flex-col items-center justify-center">
@@ -99,7 +100,7 @@ const History = () => {
     );
   }
 
-  // ── Loading ────────────────────────────────────────────────────────────────
+  // Loading
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6 flex flex-col items-center justify-center">
@@ -109,7 +110,7 @@ const History = () => {
     );
   }
 
-  // ── Main render ────────────────────────────────────────────────────────────
+  // Main render
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6">
       <div className="max-w-3xl mx-auto">
