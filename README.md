@@ -344,32 +344,6 @@ Store
 
 ---
 
-## Environment Variables
-
-Create a `.env` file in the `backend/` directory:
-
-```env
-# MongoDB
-MONGO_CONN=mongodb+srv://<user>:<password>@cluster.mongodb.net/sehat-saathi
-
-# JWT
-JWT_SECRET=your_jwt_secret_key
-
-# Google OAuth
-GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
-
-# Gemini AI
-GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=
-GEMINI_API_KEY=your_gemini_api_key
-
-# Sarvam AI
-SARVAM_API_KEY=your_sarvam_api_key
-```
-
-> ⚠️ Never commit your `.env` file to version control. Add it to `.gitignore`.
-
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -397,8 +371,6 @@ npm install
 npm run dev
 # App runs on http://localhost:5173
 ```
-
-> **Note:** The Google Client ID is currently hardcoded in `LoginPage.jsx`. Move it to an `.env` file (`VITE_GOOGLE_CLIENT_ID`) for production.
 
 ---
 
