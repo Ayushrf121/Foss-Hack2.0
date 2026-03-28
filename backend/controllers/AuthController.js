@@ -129,7 +129,7 @@ const login = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            message: "Internal Server Error!",
+            message: "No user exist!\nCreate account first.",
             success: false
         })
     }

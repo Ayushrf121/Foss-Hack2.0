@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToken } from "../../redux/Slicers/profileToken.js";
 import { useNavigate } from "react-router-dom";
+import { Url } from "../api/Url.js";
 function LoginPage({ setLogin }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ function LoginPage({ setLogin }) {
             /*SIGN UP*/
             if (currentState === "Sign-up") {
 
-                const response = await fetch("http://localhost:4000/auth/signup", {
+                const response = await fetch(Url+"/auth/signup", {
                     method: "POST",
                     headers: { "Content-type": "application/json" },
                     body: JSON.stringify(data)
@@ -52,7 +53,7 @@ function LoginPage({ setLogin }) {
             /*LOGIN */
             else {
 
-                const response = await fetch("http://localhost:4000/auth/login", {
+                const response = await fetch(Url+"/auth/login", {
                     method: "POST",
                     headers: { "Content-type": "application/json" },
                     body: JSON.stringify(data)
@@ -94,7 +95,7 @@ function LoginPage({ setLogin }) {
   if (window.google && window.google.accounts) {
 
     google.accounts.id.initialize({
-      client_id: "152354870697-l11009lhj5ru083sgdtr89j176qiaq1j.apps.googleusercontent.com",
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
       callback: responseOnCallback
     });
 
@@ -123,7 +124,7 @@ function LoginPage({ setLogin }) {
     }
     const responseOnCallback = async (response) => {
 
-        const res = await fetch("http://localhost:4000/auth/google", {
+        const res = await fetch(Url+"/auth/google", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
