@@ -396,4 +396,3 @@ SehatSaathi is intended for **educational purposes only**. The AI-generated anal
 
 ---
 
-*Built with ❤️ for accessible healthcare in India.*
